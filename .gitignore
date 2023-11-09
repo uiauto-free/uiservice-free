@@ -5,6 +5,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+.idea/*
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -37,3 +38,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# test1
+test1
+.mvn
+mvnw.*
+mvnw

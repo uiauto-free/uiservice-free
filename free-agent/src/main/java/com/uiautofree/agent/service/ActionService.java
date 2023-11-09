@@ -26,6 +26,13 @@ public interface ActionService {
     List<ActionDO> getActionList(String searchKey, String type, Integer common, Integer creatorId, int pageStart, int pageSize);
 
     /**
+     * 获取列表
+     * @param actionIds
+     * @return
+     */
+    List<ActionDO> getActionList(List<Long> actionIds);
+
+    /**
      * 计算数量
      * @param searchKey
      * @param type

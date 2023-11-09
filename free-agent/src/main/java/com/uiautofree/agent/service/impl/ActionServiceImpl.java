@@ -1,5 +1,8 @@
 package com.uiautofree.agent.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.uiautofree.agent.dao.ActionMapper;
 import com.uiautofree.agent.domain.ActionDO;
 import com.uiautofree.agent.service.ActionService;
@@ -7,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -58,6 +63,11 @@ public class ActionServiceImpl implements ActionService {
     }
 
     @Override
+    public List<ActionDO> getActionList(List<Long> actionIds) {
+        return null;
+    }
+
+    @Override
     public Long count(String searchKey, String type, Integer common, Integer creatorId) {
         if(searchKey != null) {
             searchKey = "%" + searchKey + "%";
@@ -87,163 +97,79 @@ public class ActionServiceImpl implements ActionService {
         return getAction(id);
     }
 
-//
-//    public long count(SpicyUiautoActionParam param) {
-//        return this.spicyUiautoActionDAO.countByParam(param);
-//    }
-//
-//    public long count(String searchKey, String type, Integer common, Integer creatorId) {
-//        return (long)this.getActions(searchKey, type, common, creatorId, 0, 999).size();
-//    }
-//
-//    public List<ActionDO> getActions(SpicyUiautoActionParam param) {
-//        List<ActionDO> actions = this.spicyUiautoActionDAO.selectByParamWithBLOBs(param);
-//        return null != actions && !actions.isEmpty() ? actions : null;
-//    }
-//
-//    public List<ActionDO> getActions(String searchKey, int pageStart, int pageSize) {
-//        SpicyUiautoActionParam param = new SpicyUiautoActionParam();
-//        SpicyUiautoActionParam.Criteria criteria1 = param.createCriteria().andIsDeleteEqualTo(0);
-//        SpicyUiautoActionParam.Criteria criteria2 = param.createCriteria().andIsDeleteEqualTo(0);
-//        if (searchKey != null && !searchKey.equals("")) {
-//            criteria1.andNameLike("%" + searchKey + "%");
-//            criteria2.andCommandLike("%" + searchKey + "%");
-//            param.or(criteria2);
-//        }
-//
-//        param.setPagination(pageStart, pageSize);
-//        param.appendOrderByClause(OrderCondition.ID, SortType.ASC);
-//        return this.getActions(param);
-//    }
-//
-//    public List<ActionDO> getActions(String searchKey, String type, Integer common, Integer creatorId, int pageStart, int pageSize) {
-//        SpicyUiautoActionParam param = new SpicyUiautoActionParam();
-//        SpicyUiautoActionParam.Criteria criteria1 = param.createCriteria().andIsDeleteEqualTo(0);
-//        SpicyUiautoActionParam.Criteria criteria2 = param.createCriteria().andIsDeleteEqualTo(0);
-//        if (searchKey != null && !searchKey.equals("")) {
-//            criteria1.andNameLike("%" + searchKey + "%");
-//            criteria2.andCommandLike("%" + searchKey + "%");
-//            if (type != null && !type.equals("")) {
-//                criteria1.andTypeEqualTo(type);
-//                criteria2.andTypeEqualTo(type);
-//            }
-//
-//            if (common != null) {
-//                criteria1.andCommonEqualTo(common);
-//                criteria2.andCommonEqualTo(common);
-//            }
-//
-//            if (creatorId != null) {
-//                criteria1.andCreatorIdEqualTo(creatorId);
-//                criteria2.andCreatorIdEqualTo(creatorId);
-//            }
-//
-//            param.or(criteria2);
-//        } else {
-//            if (type != null && !type.equals("")) {
-//                criteria1.andTypeEqualTo(type);
-//            }
-//
-//            if (common != null) {
-//                criteria1.andCommonEqualTo(common);
-//            }
-//
-//            if (creatorId != null) {
-//                criteria1.andCreatorIdEqualTo(creatorId);
-//            }
-//        }
-//
-//        param.setPagination(pageStart, pageSize);
-//        param.appendOrderByClause(OrderCondition.ID, SortType.ASC);
-//        return this.getActions(param);
-//    }
-//
-//    private Boolean checkDependence(ActionDO ActionDO) {
-//        Boolean noCircle = true;
-//        String originIds = ActionDO.getSubActionIds();
-//        if (originIds != null && !originIds.isEmpty()) {
-//            JSONArray subActionIds = JSON.parseArray(ActionDO.getSubActionIds());
-//            if (subActionIds.size() == 0) {
-//                return noCircle;
-//            } else {
-//                String sqlCheckIds = "";
-//
-//                for (int i = 0; i < subActionIds.size(); ++i) {
-//                    if (i == 0) {
-//                        sqlCheckIds = subActionIds.get(i).toString();
-//                    } else {
-//                        sqlCheckIds = sqlCheckIds + "," + subActionIds.get(i).toString();
-//                    }
-//                }
-//
-//                List<ActionDO> ActionDOList = this.spicyUiautoActionDAO.listByIds(sqlCheckIds);
-//                Iterator var7 = ActionDOList.iterator();
-//
-//                while (var7.hasNext()) {
-//                    ActionDO temp = (ActionDO)var7.next();
-//                    JSONArray jsonArray = JSON.parseArray(temp.getSubActionIds());
-//                    if (jsonArray.contains(ActionDO.getId())) {
-//                        noCircle = false;
-//                        break;
-//                    }
-//                }
-//
-//                return noCircle;
-//            }
-//        } else {
-//            return noCircle;
-//        }
-//    }
-//
-//    private Boolean checkParams(String paramsString) {
-//        Boolean result = true;
-//        List<String> keys = Arrays.asList("key", "name", "type", "value", "required", "description");
-//        JSONArray params = JSON.parseArray(paramsString);
-//
-//        try {
-//            int i = 0;
-//
-//            while (i < params.size()) {
-//                JSONObject object = params.getJSONObject(i);
-//                String key = object.getString("key");
-//                if (null != key && !key.isEmpty()) {
-//                    String name = object.getString("name");
-//                    if (null == name && name.isEmpty()) {
-//                        return false;
-//                    }
-//
-//                    String type = object.getString("type");
-//                    if (null != type && !type.isEmpty()) {
-//                        List<String> typeList = Arrays.asList("int", "string", "list", "select");
-//                        if (!typeList.contains(type)) {
-//                            return false;
-//                        }
-//
-//                        if ("select".equals(type)) {
-//                            JSONArray value = object.getJSONArray("value");
-//                            if (value.size() == 0) {
-//                                return false;
-//                            }
-//                        }
-//
-//                        Boolean required = object.getBoolean("required");
-//                        if (required == null) {
-//                            return false;
-//                        }
-//
-//                        ++i;
-//                        continue;
-//                    }
-//
-//                    return false;
-//                }
-//
-//                return false;
-//            }
-//        } catch (Exception var12) {
-//            result = false;
-//        }
-//
-//        return result;
-//    }
+    private Boolean checkDependence(ActionDO actionDO) {
+        boolean noCircle = true;
+        String originIds = actionDO.getSubActionIds();
+        if (originIds != null && !originIds.isEmpty()) {
+            JSONArray subActionIds = JSON.parseArray(actionDO.getSubActionIds());
+            if (subActionIds.isEmpty()) {
+                return noCircle;
+            } else {
+                for (int i = 0; i < subActionIds.size(); i++) {
+                    ActionDO temp = getAction(subActionIds.getLong(i));
+                    JSONArray jsonArray = JSON.parseArray(temp.getSubActionIds());
+                    if (jsonArray.contains(actionDO.getId())) {
+                        noCircle = false;
+                        break;
+                    }
+                }
+
+                return noCircle;
+            }
+        } else {
+            return noCircle;
+        }
+    }
+
+    private Boolean checkParams(String paramsString) {
+        boolean result = true;
+        List<String> keys = Arrays.asList("key", "name", "type", "value", "required", "description");
+        JSONArray params = JSON.parseArray(paramsString);
+
+        try {
+            int i = 0;
+
+            while (i < params.size()) {
+                JSONObject object = params.getJSONObject(i);
+                String key = object.getString("key");
+                // key 不能为空
+                if (null != key && !key.isEmpty()) {
+                    String name = object.getString("name");
+                    if (null == name || name.isEmpty()) {
+                        // name 必填
+                        return false;
+                    }
+                    String type = object.getString("type");
+                    if (null != type && !type.isEmpty()) {
+                        // type 必填
+                        List<String> typeList = Arrays.asList("int", "string", "list", "select");
+                        if (!typeList.contains(type)) {
+                            // 必须是这几种类型
+                            return false;
+                        }
+                        if ("select".equals(type)) {
+                            JSONArray value = object.getJSONArray("value");
+                            if (value.isEmpty()) {
+                                // 必须有 value
+                                return false;
+                            }
+                        }
+                        Boolean required = object.getBoolean("required");
+                        if (required == null) {
+                            // 必须是必填或者不必填
+                            return false;
+                        }
+                        ++i;
+                        continue;
+                    }
+                    return false;
+                }
+                return false;
+            }
+        } catch (Exception var12) {
+            result = false;
+        }
+
+        return result;
+    }
 }
