@@ -6,7 +6,6 @@
         <groupId>com.uiautofree</groupId>
         <artifactId>service-free</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.uiautofree</groupId>
     <artifactId>free-auth</artifactId>

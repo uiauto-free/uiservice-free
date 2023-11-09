@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * @since 2022-12-15
  */
 @Data
-public class UserBase implements Serializable {
+public class UserBase {
 
     private static final long serialVersionUID = 1L;
 

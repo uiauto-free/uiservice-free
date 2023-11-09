@@ -47,7 +47,6 @@ public class JwtokenHelper {
 
     public static Map<String, Object> verifyToken(String token) {
         try {
-            log.info("current token is " + token);
             String userId = JWT.decode(token).getClaim("userId").asString();
             Claims claims = Jwts.parser().setSigningKey(userId).parseClaimsJws(token).getBody();
             Map<String, Object> result = new HashMap<>();

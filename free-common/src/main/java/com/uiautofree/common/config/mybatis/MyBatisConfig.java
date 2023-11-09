@@ -22,7 +22,8 @@ import java.util.List;
 @MapperScan(
         value = {
                 "com.uiautofree.auth.dao",
-                "com.uiautofree.common"
+                "com.uiautofree.common",
+                "com.uiautofree.agent.dao"
         },
         sqlSessionFactoryRef = "freeSqlSessionFactory",
         sqlSessionTemplateRef = "freeSqlSessionTemplate"

@@ -6,9 +6,7 @@
         <groupId>com.uiautofree</groupId>
         <artifactId>service-free</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.uiautofree</groupId>
     <artifactId>free-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>free-starter</name>
@@ -25,6 +23,11 @@
         <dependency>
             <groupId>com.uiautofree</groupId>
             <artifactId>free-auth</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.uiautofree</groupId>
+            <artifactId>free-agent</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -60,6 +63,25 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.69</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.uiautofree</groupId>
+            <artifactId>free-runner</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
     </dependencies>
 

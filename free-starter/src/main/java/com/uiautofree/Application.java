@@ -11,9 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 @EnableAsync
 @EnableScheduling
-@MapperScan("com.uiautofree.auth.dao")
+@MapperScan({"com.uiautofree.auth.dao","com.uiautofree.agent.dao"})
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

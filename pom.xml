@@ -19,6 +19,8 @@
         <module>free-starter</module>
         <module>free-common</module>
         <module>free-auth</module>
+        <module>free-agent</module>
+        <module>free-runner</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -49,6 +51,15 @@
                 <groupId>javax.activation</groupId>
                 <artifactId>activation</artifactId>
                 <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.5.3.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

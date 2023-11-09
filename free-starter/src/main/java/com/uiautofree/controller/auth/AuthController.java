@@ -4,12 +4,10 @@ package com.uiautofree.controller.auth;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.uiautofree.auth.domain.UserBase;
 import com.uiautofree.auth.service.UserService;
-import com.uiautofree.common.config.global.BaseTemplateResponse;
+import com.uiautofree.common.config.global.BTResponse;
 import com.uiautofree.common.config.jwtoken.JwtokenHelper;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +31,8 @@ public class AuthController {
      */
     @GetMapping("/user/all")
     @ResponseBody
-    public BaseTemplateResponse<JSONArray> getAllUsers() {
-        BaseTemplateResponse<JSONArray> res = new BaseTemplateResponse<>();
+    public BTResponse<JSONArray> getAllUsers() {
+        BTResponse<JSONArray> res = new BTResponse<>();
         List<UserBase> users = userService.getAllUsers();
         JSONArray data = new JSONArray();
         users.forEach(user -> {
@@ -48,8 +46,8 @@ public class AuthController {
 
     @GetMapping("/user/get")
     @ResponseBody
-    public BaseTemplateResponse<JSONObject> getUserById(HttpServletRequest request, @RequestParam(required = false) Long id) {
-        BaseTemplateResponse<JSONObject> res = new BaseTemplateResponse<>();
+    public BTResponse<JSONObject> getUserById(HttpServletRequest request, @RequestParam(required = false) Long id) {
+        BTResponse<JSONObject> res = new BTResponse<>();
         if(id == null) {
             Object loginUserId = request.getAttribute("loginUserId");
             if (loginUserId != null) {
@@ -78,8 +76,8 @@ public class AuthController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public BaseTemplateResponse<JSONObject> login(HttpServletRequest req, HttpServletResponse res, @RequestBody JSONObject data) {
-        BaseTemplateResponse<JSONObject> response = new BaseTemplateResponse<>();
+    public BTResponse<JSONObject> login(HttpServletRequest req, HttpServletResponse res, @RequestBody JSONObject data) {
+        BTResponse<JSONObject> response = new BTResponse<>();
         JSONObject body = new JSONObject();
         body.put("result", "need login");
         if (data.containsKey("userName") && data.containsKey("password")) {
